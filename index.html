@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#153e69"><meta name="description" content="Conte uma dificuldade real da sua rotina administrativa e ajude a orientar uma futura aula prática. Pesquisa do projeto IA no Trabalho, por Paulo Bispo.">
+<title>O que pode melhorar na sua rotina? | IA no Trabalho</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23153e69'/%3E%3Cpath d='M18 20h28M18 32h20M18 44h14' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css"><script src="app.js" type="module"></script>
+</head>
+<body>
+<a class="skip" href="#pesquisa">Ir para a pesquisa</a>
+<header class="header"><a class="brand" href="./" aria-label="IA no Trabalho, início"><span class="brand-icon" aria-hidden="true">↗</span> IA no Trabalho<span class="brand-sub">Uma pesquisa por Paulo Bispo</span></a><span class="header-tag">Sua experiência vem primeiro</span></header>
+<main class="layout">
+<section class="intro" aria-labelledby="headline">
+<p class="eyebrow"><span></span> ESCUTA DA ROTINA ADMINISTRATIVA</p>
+<h1 id="headline">O que mais dificulta<br class="desktop-break"> o seu dia<br class="desktop-break"> de trabalho?</h1>
+<p class="lead">Conte uma situação real da sua rotina administrativa. Sua experiência vai ajudar a definir o tema de uma futura aula prática.</p>
+<p class="intro-detail">Primeiro, queremos entender o que você precisa. Depois, preparar conteúdo que faça sentido para o seu trabalho.</p>
+<a class="intro-cta" href="#pesquisa">Participar da pesquisa <span aria-hidden="true">↗</span></a>
+<div class="editorial-note"><span class="note-mark" aria-hidden="true">“</span><p>Não precisa conhecer inteligência artificial.<br>Queremos conhecer <strong>a sua experiência.</strong></p></div>
+<div class="how"><p class="eyebrow">COMO VAI FUNCIONAR</p><ol><li><span>01</span> Você conta o que acontece na prática.</li><li><span>02</span> Nós analisamos as necessidades relatadas.</li><li><span>03</span> Você escolhe se quer receber o aviso da aula.</li></ol></div>
+<p class="honesty">A aula ainda será definida. Participar é gratuito e não exige compra.</p>
+</section>
+<section class="survey-card" id="pesquisa" aria-labelledby="survey-title">
+<div id="form-content">
+<div class="card-top"><span class="eyebrow">SUA ROTINA EM FOCO</span><span id="step-count" aria-live="polite">Etapa 1 de 3</span></div>
+<ol class="steps" aria-label="Etapas da pesquisa"><li aria-current="step"><span>1</span> Seu perfil</li><li><span>2</span> Sua experiência</li><li><span>3</span> Preferências</li></ol>
+<form id="survey" novalidate>
+<fieldset data-step="0"><legend id="survey-title" tabindex="-1">Vamos começar por você.</legend><p class="field-intro">Qual opção descreve seu momento atual?</p>
+<div class="choices" id="profile-group">
+<label class="choice"><input type="radio" name="profile" value="current" required><span><strong>Trabalho com atividades administrativas</strong><small>Fazem parte da minha rotina atual.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="past"><span><strong>Já trabalhei com essas atividades</strong><small>Posso contar uma experiência anterior.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="entering"><span><strong>Quero entrar na área</strong><small>Ainda estou começando.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="other"><span><strong>Tenho outro perfil</strong><small>Também quero contribuir.</small></span></label>
+</div><p class="error" id="profile-error"></p><p class="quiet">Todos os perfis podem participar. Vamos analisar as experiências de cada grupo separadamente.</p>
+</fieldset>
+<fieldset data-step="1" hidden><legend tabindex="-1">Conte o que acontece na prática.</legend><p class="field-intro" id="experience-context">Pense nos últimos sete dias de trabalho.</p>
+<label class="label" for="difficulty">Você encontrou alguma dificuldade nessas atividades?</label><select id="difficulty" name="difficulty" required aria-describedby="difficulty-error"><option value="">Selecione uma opção</option><option value="yes">Sim</option><option value="no">Não encontrei dificuldade</option><option value="unsure">Não lembro / não tenho experiência para contar</option></select><p class="error" id="difficulty-error"></p>
+<div id="experience-fields" hidden>
+<label class="label" for="task">Qual atividade foi mais difícil?</label><input id="task" name="task" maxlength="240" aria-describedby="task-error" autocomplete="off"><p class="error" id="task-error"></p>
+<label class="label" for="example">O que você precisava fazer e onde encontrou dificuldade?</label><p class="hint" id="example-hint">Conte um episódio com suas palavras. Não inclua nomes, dados de clientes ou informações internas da empresa.</p><textarea id="example" name="example" rows="4" maxlength="2000" aria-describedby="example-hint example-error"></textarea><p class="error" id="example-error"></p>
+<label class="label" for="frequency">Com que frequência essa dificuldade acontece?</label><select id="frequency" name="frequency" aria-describedby="frequency-error"><option value="">Selecione</option><option value="daily">Diariamente</option><option value="weekly">Semanalmente</option><option value="monthly">Mensalmente</option><option value="rarely">Raramente</option><option value="unknown">Não sei dizer</option></select><p class="error" id="frequency-error"></p>
+<label class="label" for="solution">Como você resolve essa tarefa atualmente? <span>(opcional)</span></label><textarea id="solution" name="solution" rows="2" maxlength="1000"></textarea>
+</div>
+<label class="label" for="ai">Você já tentou usar IA em atividades administrativas? <span>(opcional)</span></label><select id="ai" name="ai"><option value="">Prefiro não responder</option><option value="yes">Sim</option><option value="no">Não</option><option value="unsure">Não tenho certeza</option></select>
+</fieldset>
+<fieldset data-step="2" hidden><legend tabindex="-1">Quer continuar essa conversa?</legend><p class="field-intro">Você pode enviar apenas sua experiência ou deixar um contato. Escolha o que faz sentido para você.</p>
+<div class="preferences">
+<label class="check"><input type="checkbox" name="notice" id="notice"><span>Quero receber por e-mail o aviso da futura aula gratuita.</span></label>
+<label class="check"><input type="checkbox" name="interview" id="interview"><span>Aceito um convite por e-mail para uma conversa de até 10 minutos sobre minha resposta.</span></label>
+<label class="check"><input type="checkbox" name="offers" id="offers"><span>Também quero receber novidades e ofertas de cursos do projeto.</span></label>
+</div>
+<div id="contact-fields" hidden><label class="label" for="firstName">Primeiro nome <span>(opcional)</span></label><input id="firstName" name="firstName" autocomplete="given-name" maxlength="80">
+<label class="label" for="email">E-mail <span id="email-required">(necessário para as opções escolhidas)</span></label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" aria-describedby="email-error"><p class="error" id="email-error"></p></div>
+<div class="privacy-box"><label class="check"><input type="checkbox" id="researchConsent" name="researchConsent" required aria-describedby="researchConsent-error"><span>Concordo em participar da pesquisa e com o uso das minhas respostas para entender necessidades e planejar conteúdo, conforme os <button type="button" class="text-button privacy-open">detalhes de privacidade</button>.</span></label><p class="error" id="researchConsent-error"></p></div>
+<p class="quiet">O aviso da aula e as ofertas são escolhas independentes. Nenhuma delas é obrigatória para participar.</p>
+</fieldset>
+<div class="honeypot" aria-hidden="true"><label for="website">Deixe vazio</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<p id="send-error" class="send-error" role="alert" hidden></p>
+<div class="actions"><button type="button" class="back" id="back" hidden>← Voltar</button><button type="button" class="primary" id="next">Continuar <span aria-hidden="true">→</span></button><button type="submit" class="primary" id="submit" hidden>Enviar minha resposta <span aria-hidden="true">↗</span></button></div>
+<p class="card-foot">Responda com suas palavras. Não há resposta certa.</p>
+</form></div>
+<div id="success" hidden tabindex="-1"><span class="success-icon" aria-hidden="true">✓</span><p class="eyebrow">PARTICIPAÇÃO RECEBIDA</p><h2>Obrigado por compartilhar sua experiência.</h2><p>Sua resposta foi salva e vai ajudar a orientar os próximos passos do projeto.</p><p id="success-notice"></p><div class="receipt"><span>Seu código de participação</span><strong id="receipt-code"></strong><small>Guarde este código caso queira solicitar a exclusão da sua resposta.</small></div><p class="quiet">A aula ainda será definida. Você não precisa comprar nada.</p></div>
+<noscript>Ative o JavaScript para responder à pesquisa. Para conversar sobre o projeto, fale com Paulo Bispo pelo perfil que divulgou a pesquisa.</noscript>
+</section>
+</main>
+<footer class="footer"><span>IA no Trabalho · Uma pesquisa por Paulo Bispo</span><button class="text-button privacy-open" type="button">Privacidade e contato</button></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><div class="dialog-top"><h2 id="privacy-title">Privacidade e contato</h2><button type="button" id="close-privacy" aria-label="Fechar detalhes de privacidade">×</button></div><p>Responsável pela pesquisa: <strong>Paulo Bispo</strong>.</p><p>Usamos suas respostas para entender necessidades da rotina administrativa e planejar conteúdo. E-mail e nome só são solicitados se você escolher receber algum contato. Aviso da aula, convite para conversa e ofertas são registrados separadamente.</p><p>As respostas ficam em armazenamento separado do código público. Relatos não serão publicados com identificação pessoal. Evite informar dados de clientes ou da empresa.</p><p>Registramos a origem da divulgação junto à resposta para entender como você chegou à pesquisa. As respostas ficam em uma planilha privada do responsável, por meio do Google Apps Script. Não há pixels publicitários nesta página.</p><p>Prazo previsto de retenção: até 180 dias, com revisão e exclusão pelo responsável. Você pode solicitar acesso, exclusão ou retirada das preferências pelo <a href="https://www.instagram.com/paulobispo000/" target="_blank" rel="noopener noreferrer">perfil de Paulo Bispo no Instagram</a>. Para localizar uma resposta sem contato, informe o código de participação.</p><p>A aula ainda está em planejamento. Não há inscrição em comunidade ou compra automática.</p></dialog>
+</body></html>

@@ -2,7 +2,7 @@
  * IA no Trabalho: receptor de pesquisa. Nunca retorna respostas ou contatos.
  * Execute configurar uma vez pelo editor antes de implantar.
  */
-const COLUNAS = ['Recebido em','ID de envio','Perfil','Atividade difícil','Exemplo recente','Frequência','Solução atual','Uso de IA','Nome','E-mail','WhatsApp','Avisar aula','Receber ofertas','Aceita conversa','Origem','Versão privacidade'];
+const COLUNAS = ['Recebido em','ID de envio','Perfil','Atividade difícil','Exemplo recente','Frequência','Solução atual','Uso de IA','Nome','E-mail','WhatsApp','Avisar aula','Receber ofertas','Aceita conversa','Origem','Versão privacidade','Dificuldade relatada','Registro de teste'];
 function configurar() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   if (!ss) throw new Error('Execute configurar no projeto vinculado à planilha.');
@@ -20,7 +20,7 @@ function configurar() {
   console.log('Planilha de respostas preparada.');
 }
 function doGet() {
-  return json_({ok:true,service:'pesquisa-ia-no-trabalho',version:1});
+  return json_({ok:true,service:'pesquisa-ia-no-trabalho',version:2});
 }
 function doPost(e) {
   try {
@@ -35,14 +35,20 @@ function doPost(e) {
     if (!/^[A-Za-z0-9_-]{16,80}$/.test(id)) throw new Error('Identificador de envio inválido.');
     const perfil = campo_(d.perfil,80,true);
     if (!['atua','ja_atuou','quer_ingressar','outro'].includes(perfil)) throw new Error('Selecione seu perfil.');
-    const tarefa = campo_(d.tarefa,1000,true);
-    const exemplo = campo_(d.exemplo,2500,true);
-    const frequencia = campo_(d.frequencia,80,true);
-    if (!['diaria','semanal','mensal','raramente'].includes(frequencia)) throw new Error('Selecione a frequência.');
-    const solucao = campo_(d.solucao,1500,true);
-    const nome = campo_(d.nome,100,true);
-    const email = campo_(d.email,254,true).toLowerCase();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Informe um e-mail válido.');
+    const v2 = d.schemaVersion === 2;
+    const dificuldade = v2 ? campo_(d.dificuldade,30,true) : 'sim';
+    if (!['sim','nao','nao_lembro'].includes(dificuldade)) throw new Error('Envio inválido.');
+    const relatoObrigatorio = !v2 || dificuldade === 'sim';
+    const tarefa = campo_(d.tarefa,1000,relatoObrigatorio);
+    const exemplo = campo_(d.exemplo,2500,relatoObrigatorio);
+    const frequencia = campo_(d.frequencia,80,relatoObrigatorio);
+    if (relatoObrigatorio && !['diaria','semanal','mensal','raramente',...(v2 ? ['nao_sei'] : [])].includes(frequencia)) throw new Error('Selecione a frequência.');
+    const solucao = campo_(d.solucao,1500,!v2);
+    const nome = campo_(d.nome,100,!v2);
+    const contato = d.avisarAula === true || d.receberOfertas === true || d.aceitaConversa === true;
+    if (v2 && ['avisarAula','receberOfertas','aceitaConversa'].some(k => typeof d[k] !== 'boolean')) throw new Error('Envio inválido.');
+    const email = campo_(d.email,254,!v2 || contato).toLowerCase();
+    if ((!v2 || contato || email) && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Informe um e-mail válido.');
     const usoIa = campo_(d.usoIa,1000,false);
     const whatsapp = campo_(d.whatsapp,40,false);
     const origem = campo_(d.origem,250,false);
@@ -57,7 +63,12 @@ function doPost(e) {
       const sh = SpreadsheetApp.openById(sid).getSheetByName('Respostas');
       if (!sh) throw new Error('Serviço ainda não configurado.');
       if (sh.getLastRow() > 1 && sh.getRange(2,2,sh.getLastRow()-1,1).createTextFinder(id).matchEntireCell(true).findNext()) return json_({ok:true,requestId:id,duplicate:true});
-      const cells = [new Date(),id,perfil,tarefa,exemplo,frequencia,solucao,usoIa,nome,email,whatsapp,sim_(d.avisarAula),sim_(d.receberOfertas),sim_(d.aceitaConversa),origem,versao];
+      // Extend only the known legacy header; do not overwrite existing responses.
+      const headers = sh.getRange(1,1,1,COLUNAS.length).getValues()[0];
+      if (headers.slice(0,16).some((h,i) => h !== COLUNAS[i])) throw new Error('Serviço ainda não configurado.');
+      if (!headers[16] && !headers[17]) sh.getRange(1,17,1,2).setValues([COLUNAS.slice(16)]);
+      else if (headers[16] !== COLUNAS[16] || headers[17] !== COLUNAS[17]) throw new Error('Serviço ainda não configurado.');
+      const cells = [new Date(),id,perfil,relatoObrigatorio?tarefa:'',relatoObrigatorio?exemplo:'',relatoObrigatorio?frequencia:'',relatoObrigatorio?solucao:'',usoIa,v2&&!contato?'':nome,v2&&!contato?'':email,whatsapp,sim_(d.avisarAula),sim_(d.receberOfertas),sim_(d.aceitaConversa),origem,versao,dificuldade,sim_(d.teste)];
       sh.appendRow(cells.map(seguro_));
       SpreadsheetApp.flush();
       return json_({ok:true,requestId:id});
