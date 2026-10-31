@@ -76,6 +76,6 @@ form.addEventListener('submit',async e=>{
     document.querySelector('#form-content').hidden=true;document.querySelector('#success').hidden=false;document.querySelector('#success').focus();
     form.reset();
   }catch(error){const box=document.querySelector('#send-error');box.textContent=(error.name==='AbortError'?'A conexão demorou mais que o esperado.':error.message)+' Suas respostas continuam nesta página. Você pode tentar novamente sem duplicar o envio.';box.hidden=false;}
-  finally{clearTimeout(timeout);busy=false;submit.disabled=false;back.disabled=false;submit.innerHTML='Enviar minha resposta <span aria-hidden="true">↗</span>';}
+  finally{clearTimeout(timeout);busy=false;submit.disabled=false;back.disabled=false;submit.innerHTML='CONCLUIR MEU PRIMEIRO PASSO <span aria-hidden="true">↗</span>';}
 });
 const dialog=document.querySelector('#privacy-dialog');document.querySelectorAll('.privacy-open').forEach(b=>b.addEventListener('click',()=>dialog.showModal()));document.querySelector('#close-privacy').addEventListener('click',()=>dialog.close());
